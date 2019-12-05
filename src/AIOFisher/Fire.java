@@ -24,7 +24,8 @@ public class Fire extends Task<ClientContext> {
                 && !ctx.players.local().inMotion()
                 && ctx.players.local().animation() == -1
                 && ctx.inventory.select().id(LOG_ID).count() >= 1
-                && ctx.inventory.select().id(TIDERBOX_ID).count() >= 1;
+                && ctx.inventory.select().id(TIDERBOX_ID).count() >= 1
+                && ctx.inventory.isFull();
     }
 
     @Override

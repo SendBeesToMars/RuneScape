@@ -30,17 +30,20 @@ public class Cook extends Task<ClientContext> {
         Item fish = ctx.inventory.select().id(FISH_ID).poll();
         GameObject fire = ctx.objects.select().id(FIRE_ID).nearest().poll();
 
-        if (ctx.players.local().animation() == -1){
+        Condition.sleep(Random.nextInt(1500,2550));
+
+        if (ctx.players.local().animation() == -1 && fire.inViewport()){
             fish.interact("Use");
             fire.interact("Use");
 
 //          ctx.chat.clickContinue(); // sends virtual space key
             if (ctx.widgets.component(270, 14).component(29).visible()){
-                Condition.sleep(Random.nextInt(478,878));
+                Condition.sleep(Random.nextInt(450,800));
                 ctx.input.send("{VK_SPACE}");
-                Condition.sleep(Random.nextInt(478,878));
             }
 
+        } else {
+            ctx.camera.turnTo(fire);
         }
     }
 }

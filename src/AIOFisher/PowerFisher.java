@@ -23,7 +23,7 @@ public class PowerFisher extends PollingScript<ClientContext> implements PaintLi
     @Override
     public void start(){
 //        taskList.addAll(Arrays.asList(new Fish(ctx), new Drop(ctx)));
-        taskList.addAll(Arrays.asList(new Cook(ctx), new Fire(ctx), new Chop(ctx)));
+        taskList.addAll(Arrays.asList(new Cook(ctx), new Fire(ctx),new Fish(ctx), new Chop(ctx)));
 //        drawGUI();
     }
 
@@ -63,6 +63,9 @@ public class PowerFisher extends PollingScript<ClientContext> implements PaintLi
             //that means we bought a fur; increment the count.
             lobster_count++;
         }
+        else if (msg.equals("nothing interesting happens.")){
+            ctx.camera.angle(180);
+        };
     }
 
     public void drawGUI(){

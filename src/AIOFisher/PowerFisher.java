@@ -22,7 +22,8 @@ public class PowerFisher extends PollingScript<ClientContext> implements PaintLi
 
     @Override
     public void start(){
-        taskList.addAll(Arrays.asList(new Fish(ctx), new Drop(ctx)));
+//        taskList.addAll(Arrays.asList(new Fish(ctx), new Drop(ctx)));
+        taskList.addAll(Arrays.asList(new Cook(ctx), new Fire(ctx), new Chop(ctx)));
 //        drawGUI();
     }
 
@@ -30,7 +31,6 @@ public class PowerFisher extends PollingScript<ClientContext> implements PaintLi
     public void poll() {
         for (Task task: taskList){
             if (task.activate()){
-                System.out.println("executing");
                 task.execute();
             }
         }

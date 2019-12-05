@@ -20,6 +20,7 @@ public class Drop extends Task<ClientContext>{
 
     @Override
     public void execute() {
+        System.out.println("@@@ DROP");
         Condition.sleep(Random.nextInt(500,5000));
         for (Item i : ctx.inventory.select().id(LOG_ID)){
             ctx.inventory.drop(i, true);

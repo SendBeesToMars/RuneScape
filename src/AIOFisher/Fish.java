@@ -6,7 +6,7 @@ import org.powerbot.script.rt4.ClientContext;
 import org.powerbot.script.rt4.Npc;
 
 public class Fish extends Task<ClientContext> {
-    private int FISHING_SPOT_ID = 1522;
+    private int[] FISHING_SPOT_ID = {1522, 1525};
 
     public Fish(ClientContext ctx) {
         super(ctx);
@@ -20,6 +20,7 @@ public class Fish extends Task<ClientContext> {
 
     @Override
     public void execute() {
+        System.out.println("@@@ FISH");
         Npc fishing_spot = ctx.npcs.select().id(FISHING_SPOT_ID).nearest().poll();
         if (fishing_spot.inViewport() && !ctx.players.local().inMotion()){
             System.out.println("in view");
@@ -29,6 +30,7 @@ public class Fish extends Task<ClientContext> {
         } else {
             System.out.println("not in view");
             ctx.camera.turnTo(fishing_spot);
+            ctx.movement.step(fishing_spot);
             Condition.sleep(Random.nextInt(50,800));
         }
     }

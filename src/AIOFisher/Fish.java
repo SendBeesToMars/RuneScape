@@ -28,7 +28,7 @@ public class Fish extends Task<ClientContext> {
             ctx.camera.turnTo(fishing_spot);
             fishing_spot.interact("Small net");
             Condition.sleep(Random.nextInt(50,800));
-            ctx.input.move(-3,Random.nextInt(15,400)); // moves mouse outside of play window(anti-anti-cheat??)
+            ctx.input.move(-3,Random.nextInt(15,300)); // moves mouse outside of play window(anti-anti-cheat??)
         } else {
             ctx.camera.turnTo(fishing_spot);
             ctx.movement.step(fishing_spot);

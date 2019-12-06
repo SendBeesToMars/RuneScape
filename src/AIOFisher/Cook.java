@@ -19,9 +19,10 @@ public class Cook extends Task<ClientContext> {
 
     @Override
     public boolean activate() {
-        return ctx.objects.select().id(FIRE_ID).nearest().poll().inViewport()
+        return ctx.movement.distance(ctx.objects.select().id(FIRE_ID).nearest().poll(), ctx.players.local()) < 5
                 && !ctx.players.local().inMotion()
-                && ctx.players.local().animation() == -1;
+                && ctx.players.local().animation() == -1
+                && ctx.inventory.count() >= 27;
     }
 
     @Override
@@ -30,17 +31,14 @@ public class Cook extends Task<ClientContext> {
         Item fish = ctx.inventory.select().id(FISH_ID).poll();
         GameObject fire = ctx.objects.select().id(FIRE_ID).nearest().poll();
 
-        Condition.sleep(Random.nextInt(1500,2550));
+        Condition.sleep(Random.nextInt(3000,3550));
 
         if (ctx.players.local().animation() == -1 && fire.inViewport()){
             fish.interact("Use");
             fire.interact("Use");
 
-//          ctx.chat.clickContinue(); // sends virtual space key
-            if (ctx.widgets.component(270, 14).component(29).visible()){
-                Condition.sleep(Random.nextInt(450,800));
-                ctx.input.send("{VK_SPACE}");
-            }
+            Condition.sleep(Random.nextInt(450,800));
+            ctx.input.send("{VK_SPACE}");
 
         } else {
             ctx.camera.turnTo(fire);

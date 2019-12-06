@@ -20,7 +20,7 @@ public class Fire extends Task<ClientContext> {
 
     @Override
     public boolean activate() {
-        return !ctx.objects.select().id(FIRE_ID).nearest().poll().inViewport()
+        return ctx.movement.distance(ctx.objects.select().id(FIRE_ID).nearest().poll(), ctx.players.local()) > 5
                 && !ctx.players.local().inMotion()
                 && ctx.players.local().animation() == -1
                 && ctx.inventory.select().id(LOG_ID).count() >= 1

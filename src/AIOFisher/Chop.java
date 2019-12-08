@@ -1,6 +1,7 @@
 package AIOFisher;
 
 import org.powerbot.script.Condition;
+import org.powerbot.script.Random;
 import org.powerbot.script.rt4.ClientContext;
 import org.powerbot.script.rt4.GameObject;
 import org.powerbot.script.rt4.Objects;
@@ -30,6 +31,11 @@ public class Chop extends Task<ClientContext> {
     public void execute() {
         System.out.println("@@@ CHOP");
         GameObject tree = ctx.objects.select().id(TREE_ID).nearest().poll();
+
+        if(ctx.widgets.component(231, 0).visible()){ // tree next to varrock bank, cant be chopped down
+            ctx.camera.angle(ctx.camera.yaw() + Random.nextInt(50,110));
+        }
+
         if (tree.inViewport()){
             tree.interact("Chop down", "Tree");
         } else {

@@ -13,6 +13,7 @@ public class Fire extends Task<ClientContext> {
     private int LOG_ID = 1511;
     private int TIDERBOX_ID = 590;
     private int FIRE_ID = 26185;
+    private int[] COOKED_FISH_ID = {323, 319, 315, 7954};
 
     public Fire(ClientContext ctx) {
         super(ctx);
@@ -20,12 +21,14 @@ public class Fire extends Task<ClientContext> {
 
     @Override
     public boolean activate() {
-        return ctx.movement.distance(ctx.objects.select().id(FIRE_ID).nearest().poll(), ctx.players.local()) > 5
+        return (ctx.movement.distance(ctx.objects.select().id(FIRE_ID).nearest().poll(), ctx.players.local()) > 5
+                || ctx.movement.distance(ctx.objects.select().id(FIRE_ID).nearest().poll(), ctx.players.local()) == -1)
                 && !ctx.players.local().inMotion()
                 && ctx.players.local().animation() == -1
                 && ctx.inventory.select().id(LOG_ID).count() >= 1
                 && ctx.inventory.select().id(TIDERBOX_ID).count() >= 1
-                && ctx.inventory.isFull();
+                && ctx.inventory.isFull()
+                && ctx.inventory.select().id(COOKED_FISH_ID).count() != 24;
     }
 
     @Override

@@ -12,6 +12,7 @@ import javax.swing.*;
 
 // TODO: if there's a fire, the bot breaks. -> check if inventory is full(including log) or if a fire is near
 //  ->check if fire is in close proximity?
+//  at start of script change camera yaw to max
 
 @Script.Manifest(name = "PowerFisherTasked", description ="fished fishes")
 
@@ -31,6 +32,7 @@ public class PowerFisher extends PollingScript<ClientContext> implements PaintLi
 //        taskList.addAll(Arrays.asList(new Fish(ctx), new Drop(ctx)));
         taskList.addAll(Arrays.asList(new Bank(ctx), new Cook(ctx), new Fire(ctx),new Fish(ctx), new Chop(ctx)));
 //        drawGUI();
+        ctx.camera.pitch(Random.nextInt(75,99));
     }
 
     @Override
@@ -74,7 +76,7 @@ public class PowerFisher extends PollingScript<ClientContext> implements PaintLi
             fish_cooked++;
         }
         else if (msg.equals("nothing interesting happens.")){
-            ctx.camera.angle(ctx.camera.yaw() + Random.nextInt(50,110));
+            ctx.camera.angle(ctx.camera.yaw() + Random.nextInt(110,180));
         };
     }
 

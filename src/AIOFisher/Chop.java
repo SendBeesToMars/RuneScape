@@ -33,7 +33,7 @@ public class Chop extends Task<ClientContext> {
         GameObject tree = ctx.objects.select().id(TREE_ID).nearest().poll();
 
         if(ctx.widgets.component(231, 0).visible()){ // tree next to varrock bank, cant be chopped down
-            ctx.camera.angle(ctx.camera.yaw() + Random.nextInt(50,110));
+            ctx.camera.angle(ctx.camera.yaw() + Random.nextInt(110,180));
         }
 
         if (tree.inViewport()){

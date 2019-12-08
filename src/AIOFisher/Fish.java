@@ -32,6 +32,7 @@ public class Fish extends Task<ClientContext> {
         } else {
             ctx.camera.turnTo(fishing_spot);
             ctx.movement.step(fishing_spot);
+            System.out.println();
             Condition.sleep(Random.nextInt(50,800));
         }
     }

@@ -41,7 +41,7 @@ public class Cook extends Task<ClientContext> {
             fish.interact("Use");
             fire.interact("Use", "Fire");
 
-            Condition.sleep(Random.nextInt(450,800));
+            Condition.sleep(Random.nextInt(750,1100));
             ctx.input.send("{VK_SPACE}");
 
         } else {

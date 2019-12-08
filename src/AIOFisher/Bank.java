@@ -23,9 +23,6 @@ public class Bank extends Task<ClientContext> {
     public void execute() {
         System.out.println("@@@ BANK");
         Locatable bank = ctx.bank.nearest().tile();
-        System.out.println("distance to bank: " + ctx.movement.distance(bank));
-        System.out.println("bank: " + bank);
-        System.out.println("player: " + ctx.players.local().tile());
 
         if (!ctx.bank.inViewport()){
             ctx.camera.turnTo(bank);

@@ -8,6 +8,6 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="RSBot-7119" level="project" />
+    <orderEntry type="library" exported="" name="RSBot-8.0.5" level="project" />
   </component>
 </module>

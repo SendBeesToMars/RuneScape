@@ -10,9 +10,8 @@ import java.util.Arrays;
 import java.util.List;
 import javax.swing.*;
 
-// TODO: if there's a fire, the bot breaks. -> check if inventory is full(including log) or if a fire is near
-//  ->check if fire is in close proximity?
-//  at start of script change camera yaw to max
+// TODO: make GUI
+//  implement better stat tracking :)
 
 @Script.Manifest(name = "PowerFisherTasked", description ="fished fishes")
 

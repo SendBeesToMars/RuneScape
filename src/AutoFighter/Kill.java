@@ -18,7 +18,7 @@ public class Kill extends Task<ClientContext> {
                 && !ctx.players.local().inMotion()
                 && !getAttackable().interacting().valid()
                 && getAttackable().combatLevel() >= 2
-                &&getAttackable().combatLevel() <= 7;
+                &&getAttackable().combatLevel() <= 10;
     }
 
     @Override
@@ -44,10 +44,7 @@ public class Kill extends Task<ClientContext> {
     }
 
     public void printAllNpcs(){
-        System.out.println(ctx.npcs.select().each(npc -> {
-            System.out.println(npc.interacting().name());
-            return false;
-        }));
+        System.out.println(ctx.npcs.select().nearest().each(npc -> !npc.interacting().valid()).poll());
     }
 
     public Npc getAttackable() {

@@ -14,23 +14,40 @@ public class Kill extends Task<ClientContext> {
 
     @Override
     public boolean activate() {
-        System.out.println(getAttackable());
         return ctx.players.local().animation() == -1
                 && !ctx.players.local().inMotion()
-                && ctx.npcs.select().id(GOBLIN_ID).nearest().poll().inViewport()
-                && ctx.npcs.select().id(GOBLIN_ID).nearest().poll().interacting().name().equals("")
-                && getCombatant().name().equals("");
+                && !getAttackable().interacting().valid()
+                && getAttackable().combatLevel() >= 2
+                &&getAttackable().combatLevel() <= 7;
     }
 
     @Override
     public void execute() {
-        System.out.println("killing");
-        ctx.npcs.select().id(GOBLIN_ID).nearest().poll().interact("Attack");
+        Npc target = getAttackable();
 
+        if (!getCombatant().name().equals("")){
+            getCombatant().interact("Attack");
+        }
+        else if (target.healthPercent() != 0 && target.inViewport() && ctx.players.local().animation() == -1){
+            printAllNpcs();
+            target.interact("Attack");
+        }
+        else{
+            ctx.camera.turnTo(target);
+            ctx.movement.step(target);
+        }
     }
+
     public Npc getCombatant() {
         return ctx.npcs.select().action("Attack").nearest()
-                .select(n -> n.interacting().name().equals(ctx.players.local().name())).peek();
+                .select(n -> n.interacting().name().equals(ctx.players.local().name())).poll();
+    }
+
+    public void printAllNpcs(){
+        System.out.println(ctx.npcs.select().each(npc -> {
+            System.out.println(npc.interacting().name());
+            return false;
+        }));
     }
 
     public Npc getAttackable() {

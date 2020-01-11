@@ -9,11 +9,12 @@ public class Walk extends Task<ClientContext>  {
 
     @Override
     public boolean activate() {
-        return false;
+        return ctx.players.local().animation() == -1
+                && !ctx.players.local().inMotion();
     }
 
     @Override
     public void execute() {
-
+        
     }
 }

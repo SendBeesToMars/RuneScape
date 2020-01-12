@@ -10,6 +10,6 @@ public abstract class Task<C extends ClientContext> extends ClientAccessor {
         super(ctx);
     }
 
-    public abstract boolean activate();
+    public abstract boolean activate(Tile initial_loc);
     public abstract void execute(Tile initial_loc);
 }

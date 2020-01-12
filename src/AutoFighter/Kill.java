@@ -1,6 +1,5 @@
 package AutoFighter;
 
-import org.powerbot.script.Filter;
 import org.powerbot.script.Tile;
 import org.powerbot.script.rt4.ClientContext;
 import org.powerbot.script.rt4.Npc;
@@ -14,32 +13,31 @@ public class Kill extends Task<ClientContext> {
     }
 
     @Override
-    public boolean activate() {
+    public boolean activate(Tile initial_loc) {
         return ctx.players.local().animation() == -1
                 && !ctx.players.local().inMotion()
-//                && !getAttackable().interacting().valid()
                 && getAttackable().combatLevel() >= 2
                 &&getAttackable().combatLevel() <= 10;
     }
 
     @Override
     public void execute(Tile initial_loc) {
-        System.out.println("distance from starting post: " + ctx.movement.distance(initial_loc, ctx.players.local().tile()));
+        System.out.println("distance from starting post: " + ctx.movement.distance(initial_loc));
         Npc target = getAttackable();
 
-        if (getCombatant().healthPercent() != 0 && getCombatant().healthPercent() != -1){
-            System.out.println("in combat already with " + getCombatant().name());
+        if (getCombatant().healthPercent() != 0 && getCombatant().healthPercent() != -1){ //anti stuck
             if (!ctx.players.local().interacting().valid()){
                 getCombatant().interact("Attack");
             }
         }
         else if (target.healthPercent() != 0 && target.inViewport() && ctx.players.local().animation() == -1){
             target.interact("Attack");
-            System.out.println("looking for new combatant");
         }
         else{
             ctx.camera.turnTo(target);
-            ctx.movement.step(target);
+            if (ctx.movement.distance(ctx.movement.destination()) < ctx.movement.distance(ctx.movement.destination(), initial_loc)){
+                ctx.movement.step(target);
+            }
         }
     }
 

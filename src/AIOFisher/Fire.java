@@ -1,9 +1,7 @@
 package AIOFisher;
 
 import org.powerbot.script.Condition;
-import org.powerbot.script.Random;
 import org.powerbot.script.rt4.ClientContext;
-import org.powerbot.script.rt4.Constants;
 import org.powerbot.script.rt4.Item;
 
 import java.util.concurrent.Callable;
@@ -38,11 +36,6 @@ public class Fire extends Task<ClientContext> {
         Item log = ctx.inventory.select().id(LOG_ID).poll();
         tinderbox.interact("Use");
         log.interact("Use");
-        Condition.wait(new Callable<Boolean>() {
-            @Override
-            public Boolean call() throws Exception {
-                return ctx.players.local().animation() == -1;
-            }
-        }, 100, 10);
+        Condition.wait(() -> ctx.players.local().animation() == -1, 100, 10);
     }
 }

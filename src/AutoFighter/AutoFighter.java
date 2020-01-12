@@ -5,6 +5,9 @@ import org.powerbot.script.rt4.ClientContext;
 import org.powerbot.script.rt4.Constants;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Script.Manifest(name = "AutoFighterTasked", description ="it'll fight yer nan")
 
@@ -15,6 +18,13 @@ public class AutoFighter extends PollingScript<ClientContext> implements PaintLi
     private final int initial_str = ctx.skills.experience(Constants.SKILLS_STRENGTH);
     private final int initial_def = ctx.skills.experience(Constants.SKILLS_DEFENSE);
     private final Tile initial_loc = ctx.players.local().tile();
+//    private List<Task> taskList = new ArrayList<>();
+    private List<Task> taskList = new ArrayList();
+
+    @Override
+    public void start() {
+        taskList.addAll(Arrays.asList(new FightArea(ctx), new Walk(ctx), new Kill(ctx)));
+    }
 
     @Override
     public void messaged(MessageEvent messageEvent) {
@@ -54,8 +64,16 @@ public class AutoFighter extends PollingScript<ClientContext> implements PaintLi
     Kill kill = new Kill(ctx);
     @Override
     public void poll() {
-        if (kill.activate()){
-            kill.execute(initial_loc);
+//        if (!ctx.movement.running() && ctx.movement.energyLevel() == 100){ // if not running and energy at 100: run
+//            ctx.movement.running(true);
+//        }
+//        if (kill.activate()){
+//            kill.execute(initial_loc);
+//        }
+        for (Task task: taskList){
+            if (task.activate(initial_loc)){
+                task.execute(initial_loc);
+            }
         }
     }
 }

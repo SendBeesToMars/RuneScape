@@ -2,7 +2,6 @@ package AIOFisher;
 
 import org.powerbot.script.*;
 import org.powerbot.script.rt4.ClientContext;
-import org.powerbot.script.rt4.GameObject;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -76,7 +75,7 @@ public class PowerFisher extends PollingScript<ClientContext> implements PaintLi
         }
         else if (msg.equals("nothing interesting happens.")){
             ctx.camera.angle(ctx.camera.yaw() + Random.nextInt(110,180));
-        };
+        }
     }
 
     public void drawGUI(){

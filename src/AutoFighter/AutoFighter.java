@@ -55,7 +55,7 @@ public class AutoFighter extends PollingScript<ClientContext> implements PaintLi
     @Override
     public void poll() {
         if (kill.activate()){
-            kill.execute();
+            kill.execute(initial_loc);
         }
     }
 }

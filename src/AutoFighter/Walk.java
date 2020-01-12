@@ -1,5 +1,6 @@
 package AutoFighter;
 
+import org.powerbot.script.Tile;
 import org.powerbot.script.rt4.ClientContext;
 
 public class Walk extends Task<ClientContext>  {
@@ -14,7 +15,7 @@ public class Walk extends Task<ClientContext>  {
     }
 
     @Override
-    public void execute() {
-        
+    public void execute(Tile initial_loc) {
+
     }
 }

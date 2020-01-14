@@ -3,6 +3,8 @@ package AutoFighter;
 import org.powerbot.script.*;
 import org.powerbot.script.rt4.ClientContext;
 import org.powerbot.script.rt4.Constants;
+import org.powerbot.script.rt4.Equipment;
+import org.powerbot.script.rt4.Item;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -18,12 +20,15 @@ public class AutoFighter extends PollingScript<ClientContext> implements PaintLi
     private final int initial_str = ctx.skills.experience(Constants.SKILLS_STRENGTH);
     private final int initial_def = ctx.skills.experience(Constants.SKILLS_DEFENSE);
     private final Tile initial_loc = ctx.players.local().tile();
-//    private List<Task> taskList = new ArrayList<>();
     private List<Task> taskList = new ArrayList();
-
+    Item main_hand;
+    Item off_hand;
+    boolean death_flag = false;
     @Override
     public void start() {
         taskList.addAll(Arrays.asList(new FightArea(ctx), new Walk(ctx), new Kill(ctx)));
+        main_hand = ctx.equipment.itemAt(Equipment.Slot.MAIN_HAND);
+        off_hand = ctx.equipment.itemAt(Equipment.Slot.OFF_HAND);
     }
 
     @Override
@@ -36,6 +41,9 @@ public class AutoFighter extends PollingScript<ClientContext> implements PaintLi
             System.out.println("att " + ctx.skills.level(Constants.SKILLS_ATTACK));
             System.out.println("str " + ctx.skills.level(Constants.SKILLS_STRENGTH));
             System.out.println("def " + ctx.skills.level(Constants.SKILLS_DEFENSE));
+        }
+        else if (msg.contains("oh dear, you are dead!")){
+            death_flag = true;
         }
     }
 
@@ -61,18 +69,23 @@ public class AutoFighter extends PollingScript<ClientContext> implements PaintLi
         g.drawString(String.format("%,d  %,d  %,d", prog_att, prog_str, prog_def), 10, 327);
     }
 
-    Kill kill = new Kill(ctx);
     @Override
     public void poll() {
-//        if (!ctx.movement.running() && ctx.movement.energyLevel() == 100){ // if not running and energy at 100: run
-//            ctx.movement.running(true);
-//        }
-//        if (kill.activate()){
-//            kill.execute(initial_loc);
-//        }
-        for (Task task: taskList){
-            if (task.activate(initial_loc)){
-                task.execute(initial_loc);
+        if (death_flag){
+            ctx.inventory.select().id(main_hand.id()).poll().interact("Wield");
+            ctx.inventory.select().id(off_hand.id()).poll().interact("Wield");
+            off_hand.interact("Wield");
+            if (ctx.equipment.itemAt(Equipment.Slot.MAIN_HAND).id() == main_hand.id() &&
+                ctx.equipment.itemAt(Equipment.Slot.OFF_HAND).id() == off_hand.id()){
+                System.out.println("death flag reset");
+                death_flag = false;
+            }
+        }
+        else{
+            for (Task task: taskList){
+                if (task.activate(initial_loc)){
+                    task.execute(initial_loc);
+                }
             }
         }
     }

@@ -11,7 +11,8 @@ public class FightArea extends Task<ClientContext> {
 
     @Override
     public boolean activate(Tile initial_loc) {
-        return ctx.movement.distance(initial_loc) > 20;
+        return ctx.movement.distance(initial_loc) > 20 &&
+                !ctx.players.local().inMotion();
     }
 
     @Override

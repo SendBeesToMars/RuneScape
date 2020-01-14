@@ -22,7 +22,6 @@ public class Kill extends Task<ClientContext> {
 
     @Override
     public void execute(Tile initial_loc) {
-        System.out.println("distance from starting post: " + ctx.movement.distance(initial_loc));
         Npc target = getAttackable();
 
         if (getCombatant().healthPercent() != 0 && getCombatant().healthPercent() != -1){ //anti stuck

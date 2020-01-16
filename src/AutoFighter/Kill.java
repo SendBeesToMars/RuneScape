@@ -15,9 +15,7 @@ public class Kill extends Task<ClientContext> {
     @Override
     public boolean activate(Tile initial_loc) {
         return ctx.players.local().animation() == -1
-                && !ctx.players.local().inMotion()
-                && getAttackable().combatLevel() >= 2
-                &&getAttackable().combatLevel() <= 10;
+                && !ctx.players.local().inMotion();
     }
 
     @Override
@@ -33,7 +31,9 @@ public class Kill extends Task<ClientContext> {
             target.interact("Attack");
         }
         else{
-            ctx.camera.turnTo(target);
+            if (!target.inViewport()){
+                ctx.camera.turnTo(target);
+            }
             if (ctx.movement.distance(ctx.movement.destination()) < ctx.movement.distance(ctx.movement.destination(), initial_loc)){
                 ctx.movement.step(target);
             }
@@ -51,6 +51,6 @@ public class Kill extends Task<ClientContext> {
     }
 
     public Npc getAttackable() {
-        return ctx.npcs.select().action("Attack").select(npc -> !npc.interacting().valid()).nearest().poll();
+        return ctx.npcs.select().action("Attack").select(npc -> !npc.interacting().valid() && npc.combatLevel() == 2).nearest().poll();
     }
 }

@@ -26,7 +26,7 @@ public class AutoFighter extends PollingScript<ClientContext> implements PaintLi
     boolean death_flag = false;
     @Override
     public void start() {
-        taskList.addAll(Arrays.asList(new FightArea(ctx), new Walk(ctx), new Kill(ctx)));
+        taskList.addAll(Arrays.asList(new Delay(ctx)/*, new Bones(ctx)*/, new Food(ctx), new FightArea(ctx), new Walk(ctx), new Kill(ctx)));
         main_hand = ctx.equipment.itemAt(Equipment.Slot.MAIN_HAND);
         off_hand = ctx.equipment.itemAt(Equipment.Slot.OFF_HAND);
     }

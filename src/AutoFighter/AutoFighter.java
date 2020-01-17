@@ -24,9 +24,16 @@ public class AutoFighter extends PollingScript<ClientContext> implements PaintLi
     Item main_hand;
     Item off_hand;
     boolean death_flag = false;
+
+    DataBean data = new DataBean();
+
+    GUI gui = new GUI();
+
     @Override
     public void start() {
-        taskList.addAll(Arrays.asList(new Delay(ctx)/*, new Bones(ctx)*/, new Food(ctx), new FightArea(ctx), new Walk(ctx), new Kill(ctx)));
+        gui.initGui();
+        data.setInitialPlayerLocation(initial_loc);
+        taskList.addAll(Arrays.asList(new Delay(ctx)/*, new Bones(ctx)*/, new Food(ctx), new FightLocation(ctx), new Walk(ctx), new Kill(ctx)));
         main_hand = ctx.equipment.itemAt(Equipment.Slot.MAIN_HAND);
         off_hand = ctx.equipment.itemAt(Equipment.Slot.OFF_HAND);
     }
@@ -82,11 +89,11 @@ public class AutoFighter extends PollingScript<ClientContext> implements PaintLi
             }
         }
         else{
-            for (Task task: taskList){
-                if (task.activate(initial_loc)){
-                    task.execute(initial_loc);
-                }
-            }
+//            for (Task task: taskList){
+//                if (task.activate(initial_loc)){
+//                    task.execute(initial_loc);
+//                }
+//            }
         }
     }
 }

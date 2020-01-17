@@ -19,9 +19,8 @@ public class Delay extends Task<ClientContext> {
 
     @Override
     public void execute(Tile initial_loc) {
-        System.out.println("delay");
         if (ctx.players.local().healthPercent() > 30){
-            Condition.sleep(Random.nextInt(700, 2400));
+            Condition.sleep(Random.nextInt(700, 4400));
         }
     }
 }

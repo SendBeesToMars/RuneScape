@@ -13,13 +13,13 @@ public class Kill extends Task<ClientContext> {
     }
 
     @Override
-    public boolean activate(Tile initial_loc) {
+    public boolean activate(DataBean data) {
         return ctx.players.local().animation() == -1
                 && !ctx.players.local().inMotion();
     }
 
     @Override
-    public void execute(Tile initial_loc) {
+    public void execute(DataBean data) {
         Npc target = getAttackable();
 
         if (getCombatant().healthPercent() != 0 && getCombatant().healthPercent() != -1){ //anti stuck
@@ -34,7 +34,7 @@ public class Kill extends Task<ClientContext> {
             if (!target.inViewport()){
                 ctx.camera.turnTo(target);
             }
-            if (ctx.movement.distance(ctx.movement.destination()) < ctx.movement.distance(ctx.movement.destination(), initial_loc)){
+            if (ctx.movement.distance(ctx.movement.destination()) < ctx.movement.distance(ctx.movement.destination(), data.getInitialPlayerLocation())){
                 ctx.movement.step(target);
             }
         }

@@ -11,14 +11,14 @@ public class Bones extends Task<ClientContext> {
     }
 
     @Override
-    public boolean activate(Tile initial_loc) {
+    public boolean activate(DataBean data) {
         return ctx.players.local().animation() == -1 &&
                 !ctx.players.local().inMotion() &&
                 getCombatant().healthPercent() == 0;
     }
 
     @Override
-    public void execute(Tile initial_loc) {
+    public void execute(DataBean data) {
         System.out.println("bones picking up lakshjgd");
         System.out.println("does this say bones? " + ctx.objects.select().select(gameObject -> gameObject.name().equals("Bones")).nearest().poll().name());
 //        ctx.objects.select().select(gameObject -> gameObject.name().equals("Bones")).poll().interact("Take", "Bones");

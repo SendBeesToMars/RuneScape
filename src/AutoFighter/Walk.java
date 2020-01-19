@@ -1,6 +1,5 @@
 package AutoFighter;
 
-import org.powerbot.script.Tile;
 import org.powerbot.script.rt4.ClientContext;
 
 public class Walk extends Task<ClientContext>  {
@@ -9,13 +8,13 @@ public class Walk extends Task<ClientContext>  {
     }
 
     @Override
-    public boolean activate(Tile initial_loc) {
+    public boolean activate(DataBean data) {
         return !ctx.movement.running() &&
                 ctx.movement.energyLevel() == 100;
     }
 
     @Override
-    public void execute(Tile initial_loc) {
+    public void execute(DataBean data) {
         ctx.movement.running(true);
     }
 }

@@ -13,6 +13,7 @@ public class DataBean implements Serializable {
     private int MaxAtt = 99;
     private int MaxStr = 99;
     private int MaxDef = 99;
+    private boolean confirm = false;
 
 
     public int getMobMaxLevel() {
@@ -77,5 +78,13 @@ public class DataBean implements Serializable {
 
     public void setMaxDef(int maxDef) {
         MaxDef = maxDef;
+    }
+
+    public boolean getConfirm() {
+        return confirm;
+    }
+
+    public void setConfirm(boolean confirm) {
+        this.confirm = confirm;
     }
 }

@@ -10,13 +10,13 @@ public class FightLocation extends Task<ClientContext> {
     }
 
     @Override
-    public boolean activate(Tile initial_loc) {
-        return ctx.movement.distance(initial_loc) > 20 &&
+    public boolean activate(DataBean data) {
+        return ctx.movement.distance(data.getInitialPlayerLocation()) > 20 &&
                 !ctx.players.local().inMotion();
     }
 
     @Override
-    public void execute(Tile initial_loc) {
-        ctx.movement.step(initial_loc);
+    public void execute(DataBean data) {
+        ctx.movement.step(data.getInitialPlayerLocation());
     }
 }

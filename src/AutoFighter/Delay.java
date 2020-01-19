@@ -12,13 +12,13 @@ public class Delay extends Task<ClientContext> {
     }
 
     @Override
-    public boolean activate(Tile initial_loc) {
+    public boolean activate(DataBean data) {
         return ctx.players.local().animation() == -1
                 && !ctx.players.local().inMotion();
     }
 
     @Override
-    public void execute(Tile initial_loc) {
+    public void execute(DataBean data) {
         if (ctx.players.local().healthPercent() > 30){
             Condition.sleep(Random.nextInt(700, 4400));
         }

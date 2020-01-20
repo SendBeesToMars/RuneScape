@@ -20,7 +20,7 @@ public class Kill extends Task<ClientContext> {
 
     @Override
     public void execute(DataBean data) {
-        Npc target = getAttackable();
+        Npc target = getAttackable(data);
 
         if (getCombatant().healthPercent() != 0 && getCombatant().healthPercent() != -1){ //anti stuck
             if (!ctx.players.local().interacting().valid()){
@@ -47,10 +47,13 @@ public class Kill extends Task<ClientContext> {
 
     public void printAllNpcs(){
 //        System.out.println("interacting with: " + ctx.npcs.select().each(npc -> npc.interacting().valid()).nearest().poll().interacting().name());
-        System.out.println("interacting with: " + ctx.movement.distance(ctx.npcs.select().nearest().poll().tile(), ctx.players.local().tile()));
+        System.out.println("interacting with: " + ctx.movement.distance(ctx.npcs.select().nearest().poll().tile()));
     }
 
-    public Npc getAttackable() {
-        return ctx.npcs.select().action("Attack").select(npc -> !npc.interacting().valid() && npc.combatLevel() == 2).nearest().poll();
+    public Npc getAttackable(DataBean data) {
+        return ctx.npcs.select().action("Attack").select(npc ->
+                !npc.interacting().valid() &&
+                npc.combatLevel() >= data.getMobMinLevel() &&
+                npc.combatLevel() <= data.getMobMaxLevel()).nearest().poll();
     }
 }

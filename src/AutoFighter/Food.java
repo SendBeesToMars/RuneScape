@@ -11,7 +11,7 @@ public class Food extends Task<ClientContext> {
 
     @Override
     public boolean activate(DataBean data) {
-        return ctx.players.local().healthPercent() <= 30;
+        return ctx.players.local().healthPercent() <= data.getHealPercent();
     }
 
     @Override

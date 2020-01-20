@@ -1,6 +1,5 @@
 package AutoFighter;
 
-import org.powerbot.script.Tile;
 import org.powerbot.script.rt4.ClientContext;
 
 public class FightLocation extends Task<ClientContext> {
@@ -11,7 +10,7 @@ public class FightLocation extends Task<ClientContext> {
 
     @Override
     public boolean activate(DataBean data) {
-        return ctx.movement.distance(data.getInitialPlayerLocation()) > 20 &&
+        return ctx.movement.distance(data.getInitialPlayerLocation()) > data.getFightLocationSize() &&
                 !ctx.players.local().inMotion();
     }
 

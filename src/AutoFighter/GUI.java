@@ -17,12 +17,12 @@ public class GUI{
         inputPanel.setLayout(new GridBagLayout());
 
         // attack type input y0-2
-        JLabel attText = new JLabel("Strength");
+        JLabel attText = new JLabel("Attack");
         c.gridx = 0;
         c.gridy = 0;
         inputPanel.add(attText, c);
 
-        JLabel strText = new JLabel("Attack");
+        JLabel strText = new JLabel("Strength");
         c.gridx = 0;
         c.gridy = 1;
         inputPanel.add(strText, c);
@@ -55,7 +55,7 @@ public class GUI{
         c.gridy = 3;
         inputPanel.add(rangeText, c);
 
-        JTextField rangeInput = new JTextField("99", 3);
+        JTextField rangeInput = new JTextField("20", 3);
         c.gridx = 1;
         c.gridy = 3;
         inputPanel.add(rangeInput, c);

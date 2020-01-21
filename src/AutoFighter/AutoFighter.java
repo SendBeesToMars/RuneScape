@@ -31,9 +31,9 @@ public class AutoFighter extends PollingScript<ClientContext> implements PaintLi
 
     @Override
     public void start() {
-        gui.initGui(data);
+        gui.initGui(data, ctx);
         data.setInitialPlayerLocation(initial_loc);
-        taskList.addAll(Arrays.asList(new Delay(ctx), new CombatType(ctx), new Food(ctx), new FightLocation(ctx), new Walk(ctx), new Kill(ctx)));
+        taskList.addAll(Arrays.asList(new CombatType(ctx), new Delay(ctx), new CombatType(ctx), new Food(ctx), new FightLocation(ctx), new Walk(ctx), new Kill(ctx)));
         main_hand = ctx.equipment.itemAt(Equipment.Slot.MAIN_HAND);
         off_hand = ctx.equipment.itemAt(Equipment.Slot.OFF_HAND);
     }
@@ -45,6 +45,7 @@ public class AutoFighter extends PollingScript<ClientContext> implements PaintLi
         System.out.println("Message received: " + msg);
 
         if (msg.contains("congratulations, you've just advanced your")){
+            data.setLevelupFlag(true);
             System.out.println("att " + ctx.skills.level(Constants.SKILLS_ATTACK));
             System.out.println("str " + ctx.skills.level(Constants.SKILLS_STRENGTH));
             System.out.println("def " + ctx.skills.level(Constants.SKILLS_DEFENSE));
@@ -88,7 +89,7 @@ public class AutoFighter extends PollingScript<ClientContext> implements PaintLi
                 death_flag = false;
             }
         }
-        else if (data.getConfirm()){
+        else if (data.getGuiConfirmFlag()){
             for (Task task: taskList){
                 if (task.activate(data)){
                     task.execute(data);

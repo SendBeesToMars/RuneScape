@@ -1,13 +1,15 @@
 package AutoFighter;
 
+import org.powerbot.bot.rt4.TPlayer;
+import org.powerbot.script.rt4.ClientContext;
+import org.powerbot.script.rt4.Constants;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class GUI{
 
-    public void initGui(DataBean data){
+    public void initGui(DataBean data, ClientContext ctx){
         JFrame frame = new JFrame("GUI");
         frame.setSize(300, 300);
 
@@ -33,17 +35,17 @@ public class GUI{
         inputPanel.add(defText, c);
 
 
-        JTextField attInput = new JTextField("99", 3);
+        JTextField attInput = new JTextField(Integer.toString(ctx.skills.level(Constants.SKILLS_ATTACK)), 3);
         c.gridx = 1;
         c.gridy = 0;
         inputPanel.add(attInput, c);
 
-        JTextField strInput = new JTextField("99", 3);
+        JTextField strInput = new JTextField(Integer.toString(ctx.skills.level(Constants.SKILLS_STRENGTH)), 3);
         c.gridx = 1;
         c.gridy = 1;
         inputPanel.add(strInput, c);
 
-        JTextField defInput = new JTextField("99", 3);
+        JTextField defInput = new JTextField(Integer.toString(ctx.skills.level(Constants.SKILLS_DEFENSE)), 3);
         c.gridx = 1;
         c.gridy = 2;
         inputPanel.add(defInput, c);
@@ -107,7 +109,7 @@ public class GUI{
             data.setMaxDef(Integer.parseInt(defInput.getText()));
             data.setMobMaxLevel(Integer.parseInt(mobMaxInput.getText()));
             data.setMobMinLevel(Integer.parseInt(mobMinInput.getText()));
-            data.setConfirm(true);
+            data.setGuiConfirmFlag(true);
             frame.dispose();
         });
         inputPanel.add(button, c);

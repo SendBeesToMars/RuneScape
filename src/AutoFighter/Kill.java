@@ -1,12 +1,9 @@
 package AutoFighter;
 
-import org.powerbot.script.Tile;
 import org.powerbot.script.rt4.ClientContext;
 import org.powerbot.script.rt4.Npc;
 
 public class Kill extends Task<ClientContext> {
-
-    private int[] GOBLIN_ID = {3031, 3033, 3034, 3017, 3029, 3036, 3030};
 
     public Kill(ClientContext ctx) {
         super(ctx);
@@ -15,7 +12,8 @@ public class Kill extends Task<ClientContext> {
     @Override
     public boolean activate(DataBean data) {
         return ctx.players.local().animation() == -1
-                && !ctx.players.local().inMotion();
+                && !ctx.players.local().inMotion()
+                && !data.getLevelupFlag();
     }
 
     @Override

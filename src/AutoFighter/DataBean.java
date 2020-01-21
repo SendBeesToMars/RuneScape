@@ -13,7 +13,8 @@ public class DataBean implements Serializable {
     private int MaxAtt = 99;
     private int MaxStr = 99;
     private int MaxDef = 99;
-    private boolean confirm = false;
+    private boolean guiConfirmFlag = false;
+    private boolean levelupFlag = true;
 
 
     public int getMobMaxLevel() {
@@ -80,11 +81,19 @@ public class DataBean implements Serializable {
         MaxDef = maxDef;
     }
 
-    public boolean getConfirm() {
-        return confirm;
+    public boolean getGuiConfirmFlag() {
+        return guiConfirmFlag;
     }
 
-    public void setConfirm(boolean confirm) {
-        this.confirm = confirm;
+    public void setGuiConfirmFlag(boolean confirm) {
+        this.guiConfirmFlag = confirm;
+    }
+
+    public boolean getLevelupFlag() {
+        return levelupFlag;
+    }
+
+    public void setLevelupFlag(boolean levelupFlag) {
+        this.levelupFlag = levelupFlag;
     }
 }

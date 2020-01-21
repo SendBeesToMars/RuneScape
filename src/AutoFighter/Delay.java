@@ -2,7 +2,6 @@ package AutoFighter;
 
 import org.powerbot.script.Condition;
 import org.powerbot.script.Random;
-import org.powerbot.script.Tile;
 import org.powerbot.script.rt4.ClientContext;
 
 public class Delay extends Task<ClientContext> {
@@ -19,7 +18,7 @@ public class Delay extends Task<ClientContext> {
 
     @Override
     public void execute(DataBean data) {
-        if (ctx.players.local().healthPercent() > 30){
+        if (ctx.players.local().healthPercent() > data.getHealPercent() && !ctx.players.local().inMotion() && !data.getLevelupFlag()){
             Condition.sleep(Random.nextInt(700, 4400));
         }
     }

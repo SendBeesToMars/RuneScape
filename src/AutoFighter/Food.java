@@ -17,6 +17,7 @@ public class Food extends Task<ClientContext> {
 
     @Override
     public void execute(DataBean data) {
+        System.out.println("heal now omfg aaaaaaa");
         // switch to invenotry tab if not on it before trying to eat fish
         if (ctx.game.tab() == Game.Tab.INVENTORY){
             if (ctx.players.local().animation() != 829){ // checks if already eating

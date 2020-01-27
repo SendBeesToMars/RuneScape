@@ -33,7 +33,7 @@ public class AutoFighter extends PollingScript<ClientContext> implements PaintLi
     public void start() {
         gui.initGui(data, ctx);
         data.setInitialPlayerLocation(initial_loc);
-        taskList.addAll(Arrays.asList(new CombatType(ctx), new Delay(ctx), new CombatType(ctx), new Food(ctx), new FightLocation(ctx), new Walk(ctx), new Kill(ctx)));
+        taskList.addAll(Arrays.asList(new CombatStyle(ctx), new Delay(ctx), new CombatStyle(ctx), new Food(ctx), new Location(ctx), new Walk(ctx), new Kill(ctx)));
         main_hand = ctx.equipment.itemAt(Equipment.Slot.MAIN_HAND);
         off_hand = ctx.equipment.itemAt(Equipment.Slot.OFF_HAND);
     }

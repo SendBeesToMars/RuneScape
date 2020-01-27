@@ -15,6 +15,7 @@ public class DataBean implements Serializable {
     private int MaxDef = 99;
     private boolean guiConfirmFlag = false;
     private boolean levelupFlag = true;
+    private boolean targetDead = false;
 
 
     public int getMobMaxLevel() {
@@ -95,5 +96,13 @@ public class DataBean implements Serializable {
 
     public void setLevelupFlag(boolean levelupFlag) {
         this.levelupFlag = levelupFlag;
+    }
+
+    public boolean getTargetDead() {
+        return targetDead;
+    }
+
+    public void setTargetDead(boolean targetDead) {
+        this.targetDead = targetDead;
     }
 }

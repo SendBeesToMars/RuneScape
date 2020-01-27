@@ -2,9 +2,9 @@ package AutoFighter;
 
 import org.powerbot.script.rt4.ClientContext;
 
-public class FightLocation extends Task<ClientContext> {
+public class Location extends Task<ClientContext> {
 
-    public FightLocation(ClientContext ctx) {
+    public Location(ClientContext ctx) {
         super(ctx);
     }
 

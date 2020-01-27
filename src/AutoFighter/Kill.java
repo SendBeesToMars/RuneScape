@@ -29,6 +29,9 @@ public class Kill extends Task<ClientContext> {
             target.interact("Attack");
         }
         else{
+            if (target.healthPercent() == 0){
+                data.setTargetDead(true);
+            }
             if (!target.inViewport()){
                 ctx.camera.turnTo(target);
             }
@@ -51,6 +54,7 @@ public class Kill extends Task<ClientContext> {
     public Npc getAttackable(DataBean data) {
         return ctx.npcs.select().action("Attack").select(npc ->
                 !npc.interacting().valid() &&
+                ctx.movement.distance(data.getInitialPlayerLocation(), npc.tile()) < data.getFightLocationSize() &&
                 npc.combatLevel() >= data.getMobMinLevel() &&
                 npc.combatLevel() <= data.getMobMaxLevel()).nearest().poll();
     }

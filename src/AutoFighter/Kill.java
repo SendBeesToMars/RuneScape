@@ -12,7 +12,7 @@ public class Kill extends Task<ClientContext> {
     @Override
     public boolean activate(DataBean data) {
         return ctx.players.local().animation() == -1
-                && !ctx.players.local().inMotion()
+//                && !ctx.players.local().inMotion()
                 && !data.getLevelupFlag();
     }
 
@@ -20,13 +20,14 @@ public class Kill extends Task<ClientContext> {
     public void execute(DataBean data) {
         Npc target = getAttackable(data);
 
-        if (getCombatant().healthPercent() != 0 && getCombatant().healthPercent() != -1){ //anti stuck
+        if (getCombatant().healthPercent() != 0 && getCombatant().healthPercent() != -1){ //checks if already in combat but not interacting - if so attacks target
             if (!ctx.players.local().interacting().valid()){
                 getCombatant().interact("Attack");
             }
         }
         else if (target.healthPercent() != 0 && target.inViewport() && ctx.players.local().animation() == -1){
             target.interact("Attack");
+            System.out.println(ctx.players.local().animation());
         }
         else{
             if (target.healthPercent() == 0){
@@ -35,9 +36,10 @@ public class Kill extends Task<ClientContext> {
             if (!target.inViewport()){
                 ctx.camera.turnTo(target);
             }
-            if (ctx.movement.distance(ctx.movement.destination()) < ctx.movement.distance(ctx.movement.destination(), data.getInitialPlayerLocation())){
-                ctx.movement.step(target);
-            }
+//            if (ctx.movement.distance(ctx.movement.destination()) < ctx.movement.distance(ctx.movement.destination(), data.getInitialPlayerLocation())){ // whats the point of this??
+//                System.out.println("stepping twards target");
+//                ctx.movement.step(target);
+//            }
         }
     }
 

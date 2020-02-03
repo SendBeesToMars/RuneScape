@@ -24,6 +24,7 @@ public class AutoFighter extends PollingScript<ClientContext> implements PaintLi
     Item main_hand;
     Item off_hand;
     boolean death_flag = false;
+    boolean gui_opened = false;
 
     DataBean data = new DataBean();
 
@@ -31,7 +32,6 @@ public class AutoFighter extends PollingScript<ClientContext> implements PaintLi
 
     @Override
     public void start() {
-        gui.initGui(data, ctx);
         data.setInitialPlayerLocation(initial_loc);
         taskList.addAll(Arrays.asList(new CombatStyle(ctx), new Delay(ctx), new CombatStyle(ctx), new Food(ctx), new Location(ctx), new Walk(ctx), new Kill(ctx)));
         main_hand = ctx.equipment.itemAt(Equipment.Slot.MAIN_HAND);
@@ -79,6 +79,10 @@ public class AutoFighter extends PollingScript<ClientContext> implements PaintLi
 
     @Override
     public void poll() {
+        if (!data.getGuiConfirmFlag() && ctx.game.loggedIn() && !gui_opened){
+            gui_opened = true;
+            gui.initGui(data, ctx);
+        }
         if (death_flag){
             ctx.inventory.select().id(main_hand.id()).poll().interact("Wield");
             ctx.inventory.select().id(off_hand.id()).poll().interact("Wield");

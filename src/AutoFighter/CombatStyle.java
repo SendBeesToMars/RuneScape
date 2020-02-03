@@ -22,10 +22,8 @@ public class CombatStyle extends Task<ClientContext> {
                 ctx.skills.level(Constants.SKILLS_STRENGTH) >= data.getMaxStr() &&
                 ctx.skills.level(Constants.SKILLS_DEFENSE) >= data.getMaxDef()){
             System.out.println("stopping bot due to lever combat level requirements being met");
-            Condition.sleep(Random.nextInt(200, 1400));
-            if (ctx.game.loggedIn()){
-                ctx.game.logout();
-            }
+            Condition.sleep(Random.nextInt(8000, 14000));
+            ctx.game.logout();
             ctx.controller.stop();
         }
         else{

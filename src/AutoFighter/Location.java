@@ -11,7 +11,7 @@ public class Location extends Task<ClientContext> {
     @Override
     public boolean activate(DataBean data) {
         return ctx.movement.distance(data.getInitialPlayerLocation()) > data.getFightLocationSize() &&
-                !ctx.players.local().inMotion();
+                ctx.players.local().animation() == -1;
     }
 
     @Override

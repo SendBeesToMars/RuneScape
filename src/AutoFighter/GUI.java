@@ -97,11 +97,11 @@ public class GUI{
 
 
         // confirm button y99
-        JButton button = new JButton("Confirm");
+        JButton buttonConfirm = new JButton("Confirm");
         c.gridx = 0;
         c.gridy = 99;
         c.gridwidth = 2;
-        button.addActionListener(e -> {
+        buttonConfirm.addActionListener(e -> {
             data.setFightLocationSize(Integer.parseInt(rangeInput.getText()));
             data.setHealPercent(Integer.parseInt(healInput.getText()));
             data.setMaxAtt(Integer.parseInt(attInput.getText()));
@@ -112,7 +112,19 @@ public class GUI{
             data.setGuiConfirmFlag(true);
             frame.dispose();
         });
-        inputPanel.add(button, c);
+        inputPanel.add(buttonConfirm, c);
+
+        JButton buttonIncrement = new JButton("+");
+        c.gridx = 2;
+        c.gridy = 0;
+        c.gridwidth = 1;
+        inputPanel.add(buttonIncrement, c);
+
+        JButton buttonDecrement = new JButton("-");
+        c.gridx = 3;
+        c.gridy = 0;
+        c.gridwidth = 1;
+        inputPanel.add(buttonDecrement, c);
 
 
         frame.getContentPane().add(inputPanel);

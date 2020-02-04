@@ -27,7 +27,7 @@ public class Kill extends Task<ClientContext> {
         }
         else if (target.healthPercent() != 0 && target.inViewport() && ctx.players.local().animation() == -1){
             target.interact("Attack");
-            System.out.println(ctx.movement.distance(target.tile()));
+            System.out.println("is reachable? : " + ctx.movement.reachable(ctx.players.local(), target));
         }
         else{
             if (target.healthPercent() == 0){
@@ -58,6 +58,7 @@ public class Kill extends Task<ClientContext> {
                 !npc.interacting().valid() &&
                 ctx.movement.distance(data.getInitialPlayerLocation(), npc.tile()) < data.getFightLocationSize() &&
                 npc.combatLevel() >= data.getMobMinLevel() &&
-                npc.combatLevel() <= data.getMobMaxLevel()).nearest().poll();
+                npc.combatLevel() <= data.getMobMaxLevel() &&
+                ctx.movement.reachable(ctx.players.local(), npc)).nearest().poll();  // reachable is heavy on computation - but checks if npc isnt behind doors
     }
 }

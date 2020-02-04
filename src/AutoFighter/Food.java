@@ -20,7 +20,7 @@ public class Food extends Task<ClientContext> {
         System.out.println("heal now omfg aaaaaaa");
         // switch to invenotry tab if not on it before trying to eat fish
         if (ctx.game.tab() == Game.Tab.INVENTORY){
-            if (ctx.players.local().animation() != 829){ // checks if already eating
+            if (ctx.players.local().animation() != 829 && ctx.players.local().healthPercent() <= data.getHealPercent()){ // checks if already eating && recheck if hp is lower than selected amount
                 ctx.inventory.select().action("Eat").poll().interact("Eat");
             }
         }

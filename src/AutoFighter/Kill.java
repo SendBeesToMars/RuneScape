@@ -27,7 +27,7 @@ public class Kill extends Task<ClientContext> {
         }
         else if (target.healthPercent() != 0 && target.inViewport() && ctx.players.local().animation() == -1){
             target.interact("Attack");
-            System.out.println(ctx.players.local().animation());
+            System.out.println(ctx.movement.distance(target.tile()));
         }
         else{
             if (target.healthPercent() == 0){
